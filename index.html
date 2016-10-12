@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="weatherApp">
+<head>
+  <meta charset="UTF-8">
+  <title>Weather App</title>
+<!-- bower:css -->
+<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="bower_components/animate.css/animate.css" />
+<!-- endbower -->
+<!-- inject:css -->
+<link rel="stylesheet" href="/app/styles/styles.css">
+<!-- endinject -->
+<!-- bower:js -->
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<!-- endbower -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+</head>
+
+
+
+<body ng-controller="weatherController as vm">
+<div class="container">
+<div class="jumbotron">
+<h1>Worldwide Weather</h1>
+</div>
+<div class="row">
+<div class="col-xs-12">
+<div class="input-group">
+<div class="input-group-btn">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" 
+        aria-haspopup="true" aria-expanded="false">Enter a City Name</button>
+        <ul class="dropdown-menu">
+          <li><a href="#" ng-click="inputSanDiego()">San Diego</a></li>
+          <li><a href="#">New York</a></li>
+          <li><a href="#">Washington D.C.</a></li>
+          <li><a href="#">London</a></li>
+          <li><a href="#">Tokyo</a></li>
+          <li><a href="#">Etc.</a></li>
+        </ul>
+      </div>
+
+<!-- vm.cityName and cityName, either one works; both work -->
+
+<input ng-model="cityName" id="Input1CityName" type="text" class="form-control" placeholder="Search for...">
+<span class="input-group-btn">
+<button ng-click="vm.submitCity(cityName)" type="submit" class="btn btn-primary">Submit</button>
+</span>
+</div></div></div>
+
+<!-- City Information Panel -->
+
+<div id="CityInfoPanel" class="panel panel-info">
+<div id="panel" class="panel-heading">City Information</div>
+<div class="panel-body">
+<p>{{vm.cityName.name}}</p>
+<p>Latitude: {{vm.cityName.coord.lat}}</p>
+<p>Longitude: {{vm.cityName.coord.lon}}</p>
+
+	<table class="table">
+	<tr>
+		<th>Temperature (F)</th>
+		<th>Pressure</th>
+		<th>Humidity</th>
+	</tr>
+	<tr class="info">
+		<td>{{vm.cityName.main.temp}}</td>
+		<td>{{vm.cityName.main.pressure}}</td>
+		<td>{{vm.cityName.main.humidity}}</td>
+	</tr>
+	<tr>
+		<th>Lowest Temp (F)</th>
+		<th>Highest Temp (F)</th>
+		<th>Wind Speed</th>
+	</tr>
+	<tr class="info">
+		<td>{{vm.cityName.main.temp_min}}</td>
+		<td>{{vm.cityName.main.temp_max}}</td>
+		<td>{{vm.cityName.wind.speed}}</td>
+	</tr>
+	</table>
+</div></div>
+
+<!-- Search History Panel-->
+
+<div class="panel panel-info">
+<div id="panel" class="panel-heading">Search History</div>
+<div class="panel-body">
+	<table class="table">
+	<tr>
+		<th>City Name</th>
+		<th>Date/Time</th>
+		</tr>
+	<tr ng-repeat="x in vm.historyList" class="info">
+		<td>{{x.name}}</td>
+		<td>{{x.timeAndDate | date:'medium'}}</td>
+	</tr>
+	</table>
+</div></div>
+
+
+
+</div>
+<!-- inject:js -->
+<script src="/app/app.module.js"></script>
+<script src="/app/weather.controller.js"></script>
+<script src="/app/weather.factory.js"></script>
+<!-- endinject -->
+</body>
+</html>
